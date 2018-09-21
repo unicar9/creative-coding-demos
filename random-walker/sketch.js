@@ -17,7 +17,7 @@ const s = function( sketch ) {
         let roundCorner = controls.radius
         let hue = sketch.floor(sketch.random(360))
         sketch.noStroke()
-        sketch.fill(hue, controls.saturation, controls.brightness)
+        sketch.fill(hue, controls.saturation, controls.brightness, controls.opacity)
         sketch.rect(x, y, size, size, roundCorner)
     
         let r = sketch.floor(sketch.random(4))
@@ -40,7 +40,7 @@ const s = function( sketch ) {
 
     sketch.mousePressed = function() {
          // press mouse and also OPTION button to draw from the mouse position
-        if ( sketch.keyIsPressed && sketch.keyCode === OPTION) {
+        if ( sketch.keyIsPressed && sketch.keyCode === sketch.OPTION) {
             x = sketch.mouseX
             y = sketch.mouseY
 
@@ -75,6 +75,7 @@ const Controls = function() {
     this.radius = 0
     this.saturation = 48
     this.brightness = 80
+    this.opacity = .8
     this.pause = false
     this.save = function() {
         myp5.save('random-walk-fun.jpg')
@@ -89,10 +90,10 @@ window.onload = function() {
     gui.add(controls, 'minSize', 1, 20)
     gui.add(controls, 'maxSize', 30, 70)
     gui.add(controls, 'step', 1, 50)
-    gui.add(controls, 'radius', 0, 100)
-    gui.add(controls, 'saturation', 0, 100)
-    gui.add(controls, 'brightness', 0, 100)
-    gui.add(controls, 'brightness', 0, 100)
+    gui.add(controls, 'radius', 0, 35)
+    gui.add(controls, 'saturation', 25, 80)
+    gui.add(controls, 'brightness', 50, 100)
+    gui.add(controls, 'opacity', 0, 1)
     pauseCtrl = gui.add(controls, 'pause')
     gui.add(controls, 'save')
 }
