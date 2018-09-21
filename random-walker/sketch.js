@@ -1,17 +1,23 @@
-window.onload = function() {
-    // var text = new FizzyText();
-    var gui = new dat.GUI();
-    gui.add(text, 'message');
-    gui.add(text, 'speed', -5, 5);
-    gui.add(text, 'displayOutline');
-    gui.add(text, 'explode');
+
+const Controls = function() {
+    this.minSize = 5
+    this.maxSize = 20
+    this.step = 5
 };
 
+const controls = new Controls()
 
-console.log('haha')
-let x,y, hue
+window.onload = function() {
+    const gui = new dat.GUI()
+    gui.add(controls, 'minSize', 1, 10)
+    gui.add(controls, 'maxSize', 20, 50)
+    gui.add(controls, 'step', 1, 50)
+}
+
+// console.log('haha')
+let x, y, hue
 let bricks = []
-let size
+// let size
 
 function setup() {
   createCanvas(windowWidth, windowHeight)
@@ -24,7 +30,7 @@ function setup() {
 
 function draw() {
   background(0)
-  size = random(10, 50)
+  size = random(controls.minSize, controls.maxSize)
   let roundCorner = 3
   let hue = floor(random(360))
   let r1 = floor(random(2))
@@ -35,7 +41,7 @@ function draw() {
     bricks.shift()
   }
 
-  let step = 40
+//   let step = 40
 
   
   noFill()
@@ -47,16 +53,16 @@ function draw() {
   
   switch(r) {
     case 0: 
-      x = x + step
+      x = (x + controls.step) % windowWidth 
       break
     case 1:
-      x = x - step
+      x = (x - controls.step) % windowWidth 
       break
     case 2:
-      y = y + step
+      y = (y + controls.step) % windowHeight
       break
     case 3: 
-      y = y - step
+      y = (y - controls.step) % windowHeight
       break
   }
 
