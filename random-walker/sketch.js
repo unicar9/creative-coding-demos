@@ -4,13 +4,14 @@ Todo:
 2. colorful mode: H random, adjust only S and B (done)
 3. pause and download(in another panel)
 4. shapes: rect, circle (through radius) and emojis
+5. mousePressed start a new random walk at where you pressed (done)
 */
 
 
 const Controls = function() {
     this.minSize = 5
-    this.maxSize = 20
-    this.step = 15
+    this.maxSize = 30
+    this.step = 30
     this.radius = 0
     this.saturation = 48
     this.brightness = 80
@@ -29,6 +30,7 @@ window.onload = function() {
 }
 
 let x, y
+let drawing = true
 
 function setup() {
     createCanvas(windowWidth, windowHeight)
@@ -40,6 +42,11 @@ function setup() {
 }
 
 function draw() {
+
+    if(!drawing) {
+        return
+    }
+
     size = random(controls.minSize, controls.maxSize)
     let roundCorner = controls.radius
     let hue = floor(random(360))
@@ -66,10 +73,28 @@ function draw() {
 }
 
 function mousePressed() {
-    x = mouseX
-    y = mouseY
+    // press mouse and also OPTION button to draw from the mouse position
+    if ( keyIsPressed && keyCode === OPTION) {
+        x = mouseX
+        y = mouseY
+
+        drawing = true
+    }
+}
+
+function keyPressed() {
+    // press RETURN to save canvas
+    if (keyCode === RETURN) {
+        save('random-walk-fun.jpg')
+    }
+
+    // press SPACE to pause/restart drawing
+    if (keyCode === 32) { 
+        drawing = !drawing
+    }
 }
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight)
 }
+
