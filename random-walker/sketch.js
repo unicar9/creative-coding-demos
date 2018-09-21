@@ -16,7 +16,7 @@ window.onload = function() {
 
 // console.log('haha')
 let x, y, hue
-let bricks = []
+// let bricks = []
 // let size
 
 function setup() {
@@ -25,29 +25,18 @@ function setup() {
   y = windowHeight / 2
   rectMode('CENTER')
   colorMode(HSB)
+  background(0)
 }
 
 
 function draw() {
-  background(0)
+
   size = random(controls.minSize, controls.maxSize)
   let roundCorner = 3
   let hue = floor(random(360))
-  let r1 = floor(random(2))
-  let brick = {x: x, y: y, size: size, hue: hue, fill: r1}
-  bricks.push(brick)
-
-  if (bricks.length > 50) {
-    bricks.shift()
-  }
-
-//   let step = 40
-
-  
-  noFill()
-
-  // strokeWeight(floor(random(1, 10)))
-  // rect(x, y, size, size, roundCorner)
+  noStroke()
+  fill(hue, 40, 80)
+  rect(x, y, size, size, roundCorner)
   
   let r = floor(random(4))
   
@@ -56,26 +45,18 @@ function draw() {
       x = (x + controls.step) % windowWidth 
       break
     case 1:
-      x = (x - controls.step) % windowWidth 
+      x = Math.abs( (x - controls.step) % windowWidth )
       break
     case 2:
       y = (y + controls.step) % windowHeight
       break
     case 3: 
-      y = (y - controls.step) % windowHeight
+      y = Math.abs( (y - controls.step) % windowHeight )
       break
   }
 
+//   rect(x, y, size, size, roundCorner)
 
-  bricks.forEach((b) => {
-    if (b.fill) {
-      fill(b.hue, 49, 80)
-    }
-
-    stroke(b.hue, 49, 80)
-
-    rect(b.x, b.y, b.size, b.size, roundCorner)
-  })
   
 }
 
