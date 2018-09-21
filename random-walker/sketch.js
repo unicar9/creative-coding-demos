@@ -5,23 +5,25 @@ const s = function( sketch ) {
         sketch.createCanvas(sketch.windowWidth, sketch.windowHeight)
         x = sketch.windowWidth / 2
         y = sketch.windowHeight / 2
-        sketch.rectMode('CENTER')
+        sketch.rectMode(sketch.CENTER)
         sketch.colorMode(sketch.HSB)
         sketch.background(0)
     }
 
     sketch.draw = function() {
+        let { minSize, maxSize, radius, styles, step, saturation, brightness, opacity } = controls
+
         if(controls.pause) return
 
-        size = sketch.random(controls.minSize, controls.maxSize)
-        let roundCorner = controls.radius
+        size = sketch.random(minSize, maxSize)
+        let roundCorner = radius
         let hue = sketch.floor(sketch.random(360))
-        if (controls.styles === 'fill') {
+        if (styles === 'fill') {
             sketch.noStroke()
-            sketch.fill(hue, controls.saturation, controls.brightness, controls.opacity)
+            sketch.fill(hue, saturation, brightness, opacity)
         } else {
             sketch.noFill()
-            sketch.stroke(hue, controls.saturation, controls.brightness, controls.opacity)
+            sketch.stroke(hue, saturation, brightness, opacity)
         }
 
         sketch.rect(x, y, size, size, roundCorner)
@@ -30,16 +32,16 @@ const s = function( sketch ) {
     
         switch(r) {
             case 0: 
-            x = (x + controls.step) % sketch.windowWidth 
+            x = (x + step) % sketch.windowWidth 
             break
             case 1:
-            x = Math.abs( (x - controls.step) % sketch.windowWidth )
+            x = Math.abs( (x - step) % sketch.windowWidth )
             break
             case 2:
-            y = (y + controls.step) % sketch.windowHeight
+            y = (y + step) % sketch.windowHeight
             break
             case 3: 
-            y = Math.abs( (y - controls.step) % sketch.windowHeight )
+            y = Math.abs( (y - step) % sketch.windowHeight )
             break
         }
     }
@@ -72,8 +74,6 @@ const s = function( sketch ) {
     }
 }
 
-const myp5 = new p5(s)
-
 const Controls = function() {
     this.minSize = 5
     this.maxSize = 30
@@ -90,6 +90,7 @@ const Controls = function() {
 }
 
 const controls = new Controls()
+const myp5 = new p5(s)
 let pauseCtrl
 
 window.onload = function() {
