@@ -16,10 +16,16 @@ const s = function( sketch ) {
         size = sketch.random(controls.minSize, controls.maxSize)
         let roundCorner = controls.radius
         let hue = sketch.floor(sketch.random(360))
-        sketch.noStroke()
-        sketch.fill(hue, controls.saturation, controls.brightness, controls.opacity)
+        if (controls.styles === 'fill') {
+            sketch.noStroke()
+            sketch.fill(hue, controls.saturation, controls.brightness, controls.opacity)
+        } else {
+            sketch.noFill()
+            sketch.stroke(hue, controls.saturation, controls.brightness, controls.opacity)
+        }
+
         sketch.rect(x, y, size, size, roundCorner)
-    
+
         let r = sketch.floor(sketch.random(4))
     
         switch(r) {
@@ -76,6 +82,7 @@ const Controls = function() {
     this.saturation = 48
     this.brightness = 80
     this.opacity = .8
+    this.styles = 'fill'
     this.pause = false
     this.save = function() {
         myp5.save('random-walk-fun.jpg')
@@ -94,6 +101,7 @@ window.onload = function() {
     gui.add(controls, 'saturation', 25, 80)
     gui.add(controls, 'brightness', 50, 100)
     gui.add(controls, 'opacity', 0, 1)
+    gui.add(controls, 'styles', [ 'fill', 'stroke' ] );
     pauseCtrl = gui.add(controls, 'pause')
     gui.add(controls, 'save')
 }
