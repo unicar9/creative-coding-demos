@@ -63,7 +63,11 @@ function draw() {
         y = Math.abs( (y - controls.step) % windowHeight )
         break
     }
-  
+}
+
+function mousePressed() {
+    x = mouseX
+    y = mouseY
 }
 
 function windowResized() {
