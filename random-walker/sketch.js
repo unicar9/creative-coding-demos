@@ -1,12 +1,72 @@
-/*
-Todo:
-1. mono color: adjust hue and shades
-2. colorful mode: H random, adjust only S and B (done)
-3. pause and download(in another panel)
-4. shapes: rect, circle (through radius) and emojis
-5. mousePressed start a new random walk at where you pressed (done)
-*/
+const s = function( sketch ) {
+    let x, y
 
+    sketch.setup = function() {
+        sketch.createCanvas(sketch.windowWidth, sketch.windowHeight)
+        x = sketch.windowWidth / 2
+        y = sketch.windowHeight / 2
+        sketch.rectMode('CENTER')
+        sketch.colorMode(sketch.HSB)
+        sketch.background(0)
+    }
+
+    sketch.draw = function() {
+        if(controls.pause) return
+
+        size = sketch.random(controls.minSize, controls.maxSize)
+        let roundCorner = controls.radius
+        let hue = sketch.floor(sketch.random(360))
+        sketch.noStroke()
+        sketch.fill(hue, controls.saturation, controls.brightness)
+        sketch.rect(x, y, size, size, roundCorner)
+    
+        let r = sketch.floor(sketch.random(4))
+    
+        switch(r) {
+            case 0: 
+            x = (x + controls.step) % sketch.windowWidth 
+            break
+            case 1:
+            x = Math.abs( (x - controls.step) % sketch.windowWidth )
+            break
+            case 2:
+            y = (y + controls.step) % sketch.windowHeight
+            break
+            case 3: 
+            y = Math.abs( (y - controls.step) % sketch.windowHeight )
+            break
+        }
+    }
+
+    sketch.mousePressed = function() {
+         // press mouse and also OPTION button to draw from the mouse position
+        if ( sketch.keyIsPressed && sketch.keyCode === OPTION) {
+            x = sketch.mouseX
+            y = sketch.mouseY
+
+            controls.pause = false
+        }
+    }
+
+    sketch.keyPressed = function() {
+        // press RETURN to save canvas
+        if (sketch.keyCode === sketch.RETURN) {
+            sketch.save('random-walk-fun.jpg')
+        }
+
+        // press SPACE to pause/restart drawing
+        if (sketch.keyCode === sketch.CONTROL) { 
+            controls.pause = !controls.pause
+            pauseCtrl.setValue(controls.pause)
+        }
+    }
+
+    sketch.resizeCanvas = function() {
+        sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight)
+    }
+}
+
+const myp5 = new p5(s)
 
 const Controls = function() {
     this.minSize = 5
@@ -15,9 +75,14 @@ const Controls = function() {
     this.radius = 0
     this.saturation = 48
     this.brightness = 80
+    this.pause = false
+    this.save = function() {
+        myp5.save('random-walk-fun.jpg')
+    }
 }
 
 const controls = new Controls()
+let pauseCtrl
 
 window.onload = function() {
     const gui = new dat.GUI()
@@ -27,74 +92,8 @@ window.onload = function() {
     gui.add(controls, 'radius', 0, 100)
     gui.add(controls, 'saturation', 0, 100)
     gui.add(controls, 'brightness', 0, 100)
-}
-
-let x, y
-let drawing = true
-
-function setup() {
-    createCanvas(windowWidth, windowHeight)
-    x = windowWidth / 2
-    y = windowHeight / 2
-    rectMode('CENTER')
-    colorMode(HSB)
-    background(0)
-}
-
-function draw() {
-
-    if(!drawing) {
-        return
-    }
-
-    size = random(controls.minSize, controls.maxSize)
-    let roundCorner = controls.radius
-    let hue = floor(random(360))
-    noStroke()
-    fill(hue, controls.saturation, controls.brightness)
-    rect(x, y, size, size, roundCorner)
-  
-    let r = floor(random(4))
-  
-    switch(r) {
-        case 0: 
-        x = (x + controls.step) % windowWidth 
-        break
-        case 1:
-        x = Math.abs( (x - controls.step) % windowWidth )
-        break
-        case 2:
-        y = (y + controls.step) % windowHeight
-        break
-        case 3: 
-        y = Math.abs( (y - controls.step) % windowHeight )
-        break
-    }
-}
-
-function mousePressed() {
-    // press mouse and also OPTION button to draw from the mouse position
-    if ( keyIsPressed && keyCode === OPTION) {
-        x = mouseX
-        y = mouseY
-
-        drawing = true
-    }
-}
-
-function keyPressed() {
-    // press RETURN to save canvas
-    if (keyCode === RETURN) {
-        save('random-walk-fun.jpg')
-    }
-
-    // press SPACE to pause/restart drawing
-    if (keyCode === 32) { 
-        drawing = !drawing
-    }
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight)
+    gui.add(controls, 'brightness', 0, 100)
+    pauseCtrl = gui.add(controls, 'pause')
+    gui.add(controls, 'save')
 }
 
