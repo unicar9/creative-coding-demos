@@ -71,6 +71,7 @@ const s = function( sketch ) {
 
     sketch.windowResized = function() {
         sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight)
+        sketch.background(0)
     }
 }
 
