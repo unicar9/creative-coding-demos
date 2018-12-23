@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonfire</title>
+  <script src="js/three.js"></script>
+  <script src="js/orbitControls.js"></script>
+  <script src="js/datGui.js"></script>
+  <script src="js/main.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+    body {
+      margin:0;
+      overflow: hidden;
+    }
+
+    #hint {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      font-family: Raleway, sans-serif;
+      font-weight: 700;
+      font-size: 2em;
+      color: #ffffff;
+      text-transform: uppercase;
+      animation: scaleOut 3s ease-in-out;
+      animation-delay: 4s;
+      animation-fill-mode: forwards;
+    } 
+
+    @keyframes scaleOut {
+      from { transform: scale(1); }
+        to { transform: scale(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="hint">Double click to rotate the scene!</div>
+  <div id="output"></div>
+</body>
+</html>
