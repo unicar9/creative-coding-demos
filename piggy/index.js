@@ -95,6 +95,10 @@ function draw() {
   system.run()
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
 function mouseClicked() {
   system.origin = createVector(mouseX, mouseY)
   currentColor += 2
