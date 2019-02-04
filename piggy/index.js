@@ -80,7 +80,7 @@ class PiggyParticleSystem {
 }
 
 function preload() {
-  img = loadImage('ppp-white.jpg')
+  img = loadImage('piggy.jpg')
 }
 
 function setup() {
