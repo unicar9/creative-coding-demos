@@ -34,17 +34,18 @@ class Particle {
     this.pos = this.pos.lerp(this.target, 0.1);
     this.size = lerp(this.size, this.sizeTarget, t);
 
-    // let note = random(["Fb4", "G4"]);
-    // // note velocity (volume, from 0 to 1)
-    // let velocity = random();
-    // // time from now (in seconds)
-    // let time = 0;
-    // // note duration (in seconds)
-    // let dur = 1 / 6;
+    const notes = ["C4", "D4", "E4", "F4", "G4", "A4", "B5"];
+    const note = notes[Math.round(map(targetSize, 17, 30, -1, 7))];
+    // note velocity (volume, from 0 to 1)
+    let velocity = random();
+    // time from now (in seconds)
+    let time = 0;
+    // note duration (in seconds)
+    let dur = 1 / 6;
 
-    // if (!this.played) {
-    //   monoSynth.play(note, velocity, frameCount / 2, dur);
-    //   this.played = true;
-    // }
+    if (!this.played) {
+      monoSynth.play(note, velocity, time, dur);
+      this.played = true;
+    }
   }
 }
