@@ -7,65 +7,65 @@ let values;
 
 let dayIndex = 0;
 
-let colors = [
-  "#7209b7",
-  "#3a0ca3",
-  "#4361ee",
-  "#4cc9f0",
-  "#ef476f",
-  "#ffd166",
-  "#06d6a0",
-  "#118ab2",
-  "#073b4c",
-  "#ffffff",
+const colorSchemes = [
+  ["#E883EB", "#F044E7", "#BD4CC7", "#9B39B3", "#8D00A3", "#AC92EB"],
+  ["#a3daff", "#1ec0ff", "#0080ff", "#03a6ff", "#003399", "#4EC2E8"],
+  ["#2e4500", "#466900", "#a1c323", "#b2de81", "#3e6a45", "#A0D668"],
+  ["#FFEB56", "#FFC905", "#FFBA26", "#FF9D14", "#FF7000", "#FECE53"],
+  ["#7e152e", "#d51600", "#e74d08", "#f42448", "#f96574", "#ED5564"],
 ];
 
-const colorSchemes = [
-  ["#9b5de5", "#f15bb5", "#fee440", "#00bbf9", "#00f5d4"],
-  ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93"],
-  ["#fdc5f5", "#f7aef8", "#b388eb", "#8093f1", "#72ddf7"],
-];
+// ["#E883EB", "#F044E7", "#BD4CC7", "#9B39B3", "#8D00A3", "#AC92EB"],
+// ["#a3daff", "#1ec0ff", "#0080ff", "#03a6ff", "#003399", "#4EC2E8"],
+// ["#2e4500", "#466900", "#a1c323", "#b2de81", "#3e6a45", "#A0D668"],
+// ["#FFEB56", "#FFC905", "#FFBA26", "#FF9D14", "#FF7000", "#FECE53"],
+// ["#7e152e", "#d51600", "#e74d08", "#f42448", "#f96574", "#ED5564"],
 
 function groupDataByDate(data) {
-  return _.groupBy(data, item => item[0].split(" ")[0]);
+  const min = _.minBy(data, (item) => item[1]);
+  console.log("min: ", min);
+  const max = _.maxBy(data, (item) => item[1]);
+  console.log("max: ", max);
+  return _.groupBy(data, (item) => item[0].split(" ")[0]);
 }
+
+// let monoSynth;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //   colorMode(HSB);
   background(0);
-  shuffle(colors, true);
 
   rectMode(CENTER);
   ellipseMode(CENTER);
 
+  // cnv.mousePressed(playSynth);
+
   tempratureSet = groupDataByDate(data);
   values = Object.values(tempratureSet);
   days = Object.keys(tempratureSet);
-  //   for (let i = 0; i < 5; i++) {
-  //     let p = new Particle(10);
-  //     particles.push(p);
-  //   }
+
   console.log(days[dayIndex]);
+  // monoSynth = new p5.MonoSynth();
+
+  // getAudioContext().resume();
 }
 
 let count = 0;
 let growing = true;
-let x = "hello";
-let info = "";
+let x = "2021-06-01";
 
 function draw() {
-  // background(0);
   fill("#fff");
   textSize(32);
   text(x, 100, 100);
-  text(info, width - 300, 100);
+
   if (particles.length < values[dayIndex].length) {
     let v = values[dayIndex][count];
     let h = v[0].split(" ")[1].split(":")[0];
 
     let beforeNoon = h < "12";
-    particles.push(new Particle(0, v[1], beforeNoon));
+    particles.push(new Particle(v[1], beforeNoon));
+
     count++;
     growing = true;
   } else {
@@ -75,11 +75,36 @@ function draw() {
   for (let i = 0; i < particles.length; i++) {
     let particle = particles[i];
     particle.display();
+    // particle.playSound();
   }
+  // let note = random(["Fb4", "G4"]);
+  // // note velocity (volume, from 0 to 1)
+  // let velocity = random();
+  // // time from now (in seconds)
+  // let time = 0;
+  // // note duration (in seconds)
+  // let dur = 1 / 6;
+
+  // monoSynth.play(note, velocity, time, dur);
 }
+
+// function playSynth() {
+//   userStartAudio();
+
+//   let note = random(["Fb4", "G4"]);
+//   // note velocity (volume, from 0 to 1)
+//   let velocity = random();
+//   // time from now (in seconds)
+//   let time = 0;
+//   // note duration (in seconds)
+//   let dur = 1 / 6;
+
+//   monoSynth.play(note, velocity, time, dur);
+// }
 
 function mousePressed() {
   if (growing) return;
+
   clear();
   background(0);
   particles = [];
@@ -87,4 +112,6 @@ function mousePressed() {
   dayIndex++;
   x = days[dayIndex];
   console.log(days[dayIndex]);
+
+  if (!x) return;
 }
