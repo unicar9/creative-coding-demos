@@ -1,3 +1,21 @@
+let monoSynth;
+const notes = [
+  "C4",
+  "D4",
+  "E4",
+  "F4",
+  "G4",
+  "A4",
+  "B4",
+  "C5",
+  "D5",
+  "E5",
+  "F5",
+  "G5",
+  "A5",
+  "B5",
+];
+
 class Particle {
   constructor(targetSize, beforeNoon) {
     let x = map(noise(random(100)), 0, 1, 0, windowWidth);
@@ -18,6 +36,8 @@ class Particle {
     this.col = random(
       colorSchemes[Math.round(map(targetSize, 17, 30, -1, 4.5))]
     );
+
+    this.note = notes[Math.round(map(targetSize, 17, 30, -1, 15))];
   }
 
   display() {
@@ -34,17 +54,15 @@ class Particle {
     this.pos = this.pos.lerp(this.target, 0.1);
     this.size = lerp(this.size, this.sizeTarget, t);
 
-    const notes = ["C4", "D4", "E4", "F4", "G4", "A4", "B5"];
-    const note = notes[Math.round(map(targetSize, 17, 30, -1, 7))];
     // note velocity (volume, from 0 to 1)
-    let velocity = random();
+    let velocity = random() * 0.5;
     // time from now (in seconds)
     let time = 0;
     // note duration (in seconds)
-    let dur = 1 / 6;
+    let dur = 1 / 10;
 
     if (!this.played) {
-      monoSynth.play(note, velocity, time, dur);
+      monoSynth.play(this.note, velocity, time, dur);
       this.played = true;
     }
   }

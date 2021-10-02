@@ -31,8 +31,6 @@ function groupDataByDate(data) {
   return _.groupBy(data, item => item[0].split(" ")[0]);
 }
 
-// let monoSynth;
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
@@ -47,7 +45,7 @@ function setup() {
   days = Object.keys(tempratureSet);
 
   console.log(days[dayIndex]);
-  // monoSynth = new p5.MonoSynth();
+  monoSynth = new p5.MonoSynth();
 
   // getAudioContext().resume();
 }
@@ -61,7 +59,7 @@ function draw() {
   textSize(32);
   text(x, 100, 100);
 
-  if (particles.length < values[dayIndex].length && frameCount % 12 === 0) {
+  if (particles.length < values[dayIndex].length && frameCount % 10 === 0) {
     let v = values[dayIndex][count];
     let h = v[0].split(" ")[1].split(":")[0];
     let beforeNoon = h < "12";
@@ -69,7 +67,9 @@ function draw() {
 
     count++;
     growing = true;
-  } else {
+  }
+
+  if (particles.length === values[dayIndex].length) {
     growing = false;
   }
 
