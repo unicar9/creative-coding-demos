@@ -47,7 +47,7 @@ function draw() {
 
   if (
     particles.length < tempratures[dayIndex].length &&
-    frameCount % 10 === 0
+    frameCount % 30 === 0
   ) {
     let tempratureAtTime = tempratures[dayIndex][count];
     let hour = tempratureAtTime[0].split(" ")[1].split(":")[0];
