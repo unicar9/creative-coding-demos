@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"
+      integrity="sha512-w1Bktzax55ZbjW5Mqjz8+mKz4KqRjEUU35Dpq/ath29yskKqIGwNIHiFNp03m/OiJWDXvdQ1/g6aV+l4PeVO7Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.js"
+      integrity="sha512-U2sgwrFhl+Tgx9iGH9h5Ba2WyIjyCes+D0prtIFw3a0V+/fkaeL5Cd/VjyPHno9kUPE1rnNhBGTyvtZsfJp0xg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>Webcam</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+        color: #fff;
+        width: 100vw;
+        height: 100vh;
+      }
+      .info {
+        position: absolute;
+        left: 10px;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="info">
+      <p>
+        A pair of contrasting colors are used for the background and the webcam
+        tint, they change with time.
+      </p>
+      <p>
+        Moving mouse horizontally changes webcam filter, Moving mouse vertically
+        changes color saturation
+      </p>
+    </div>
+    <script src="sketch.js" type="text/javascript"></script>
+  </body>
+</html>
