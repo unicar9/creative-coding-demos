@@ -1,4 +1,12 @@
 console.log("haha");
+
+const upload = document.getElementById("upload");
+const audioPlayer = document.getElementById("audio");
+upload.addEventListener("change", e => {
+  console.log(e.target.files[0]);
+  audioPlayer.src = URL.createObjectURL(e.target.files[0]);
+});
+
 let images = [];
 
 const bgColor = "#2A1C52";
@@ -89,11 +97,11 @@ function draw() {
   image(pg, -width / 2, 0, windowWidth, windowHeight);
 
   // the glitched images
-  images.forEach((i) => {
-    if (i) {
-      i.drawGlitch();
-    }
-  });
+  // images.forEach((i) => {
+  //   if (i) {
+  //     i.drawGlitch();
+  //   }
+  // });
   // the glitched images
 }
 
