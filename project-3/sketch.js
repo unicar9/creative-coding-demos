@@ -89,16 +89,16 @@ function draw() {
   let scale = map(vol, 0, 1, 0.5, 1);
   // pg.background(bgColor);
   let xoff = 0;
-  for (let x = 0; x <= pg.width; x += 30) {
+  for (let x = -width / 2; x <= width / 2; x += 30) {
     let y = map(noise(xoff, yoff), 0, 1, -80, -300);
 
-    pg.fill("yellow");
-    pg.rect(x, height * 0.35, 10, y * scale);
+    fill("yellow");
+    rect(x, height * 0.35, 10, y * scale);
     xoff += 0.1;
   }
 
   yoff += 0.003;
-  image(pg, -width / 2, 0, windowWidth, windowHeight);
+  // image(pg, -width / 2, 0, windowWidth, windowHeight);
 
   // the glitched images
   graphics.forEach((g, i) => {
