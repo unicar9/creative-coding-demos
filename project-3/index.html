@@ -27,19 +27,17 @@
     <title>Project3</title>
   </head>
   <body>
-    <!-- <p id="degree"></p>
-    <p id="time"></p> -->
-
     <div class="wrapper">
       <h1 class="title">Create Your Unique Vaporwave Animation</h1>
 
       <h3 class="info">Step 1: Upload 3-5 Vaporwave Style Images</h3>
-      <a href="https://imgbin.com/free-png/vaporwave" target="_blank">
-        You can download from here!
-      </a>
-
+      <span>
+        <a href="httspans://imgbin.com/free-png/vaporwave" target="_blank">
+          You can download from here!
+        </a>
+      </span>
       <h3 class="info">
-        Step 2: Upload An Vaporwave Style Music (Can Be Any Electronic Music)
+        Step 2: Upload A Vaporwave Style Music (Can Be Any Electronic Music)
       </h3>
 
       <div class="audio-wrapper">
@@ -50,7 +48,34 @@
         </audio>
       </div>
 
-      <button class="btn">Generate Vaporwave Animation!</button>
+      <h3 class="info">Step 3: Choose A Vaporwave Style Color Scheme</h3>
+
+      <form>
+        <input
+          type="radio"
+          id="colors1"
+          name="color_scheme"
+          value="0"
+          checked
+        />
+        <label for="colors1"
+          ><img class="palette" src="colors/colors1.png" alt=""
+        /></label>
+        <input type="radio" id="colors2" name="color_scheme" value="1" />
+        <label for="colors2"
+          ><img class="palette" src="colors/colors2.png" alt=""
+        /></label>
+        <input type="radio" id="colors3" name="color_scheme" value="2" />
+        <label for="colors3"
+          ><img class="palette" src="colors/colors3.png" alt=""
+        /></label>
+        <input type="radio" id="colors4" name="color_scheme" value="3" />
+        <label for="colors4"
+          ><img class="palette" src="colors/colors4.png" alt=""
+        /></label>
+        <br />
+        <button type="submit" class="btn">Generate Vaporwave Animation!</button>
+      </form>
     </div>
 
     <script src="glitchedImage.js" type="text/javascript"></script>

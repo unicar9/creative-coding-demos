@@ -7,7 +7,9 @@ const audioPlayer = document.getElementById("audioPlayer");
 
 const btn = document.querySelector(".btn");
 
-upload.addEventListener("change", e => {
+const form = document.querySelector("form");
+
+upload.addEventListener("change", (e) => {
   audioPlayer.src = URL.createObjectURL(e.target.files[0]);
   //   audioPlayer.play();
 });
@@ -17,4 +19,16 @@ btn.addEventListener("click", () => {
   thumbnails = [];
   audioPlayer.play();
   wrapper.style.display = "none";
+});
+
+form.addEventListener("submit", (e) => {
+  const data = new FormData(form);
+  colorIndex = data.get("color_scheme");
+  console.log("colorIndex: ", colorIndex);
+
+  bgColor = bgColors[colorIndex];
+  planeStroke = planeStrokeColors[colorIndex];
+  moonColor = moonColors[colorIndex];
+  musicBarColor = musicBarColors[colorIndex];
+  e.preventDefault();
 });

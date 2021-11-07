@@ -4,8 +4,17 @@ let stars = [];
 let thumbnails = [];
 let graphics = [];
 
-const bgColor = "#2A1C52";
-const planeStroke = "#f800b7";
+const bgColors = ["#2A1C52", "#7027A0", "#120358", "#3B1449"];
+const planeStrokeColors = ["#f800b7", "#09CDFE", "#FF76FF", "#1481EF"];
+const moonColors = ["#f4631f", "#C32BAD", "#FF124F", "#ED2685"];
+const musicBarColors = ["#03B3FE", "#FFF338", "#0CECDD", "#F1E52A"];
+
+let colorIndex = 0;
+
+let bgColor = bgColors[colorIndex];
+let planeStroke = planeStrokeColors[colorIndex];
+let moonColor = moonColors[colorIndex];
+let musicBarColor = musicBarColors[colorIndex];
 
 let mic;
 let pg;
@@ -39,26 +48,20 @@ let angle = 0;
 
 function draw() {
   background(bgColor);
-  // textSize(24);
-  // textAlign(CENTER);
-  // text("Drag an image file onto the canvas.", width / 2, height / 2);
-  // ambientLight(255);
-  // pointLight(0, 255, 255, 100, 100, 100);
-  // directionalLight(250, 250, 250, 100, 100, -0.5);
 
   thumbnails.forEach((img, i) => {
-    image(img.img, i * 210, -150, img.w, img.h);
+    image(img.img, i * 210 - 2 / width, -150, img.w, img.h);
   });
 
   if (!startAnimation) return;
-  ambientLight("#EA7851");
+  ambientLight(200);
   let locX = mouseX - width / 2;
   let locY = mouseY - height / 2;
 
   pointLight(250, 250, 250, locX, locY, 100);
 
   // ambientMaterial(243, 155, 32);
-  fill(243, 155, 32);
+  fill(moonColor);
 
   // ambientMaterial(70, 130, 230);
   push();
@@ -99,13 +102,13 @@ function draw() {
   for (let x = -width / 2; x <= width / 2; x += 30) {
     let y = map(noise(xoff, yoff), 0, 1, -80, -300);
 
-    fill("yellow");
+    fill(musicBarColor);
+    noStroke();
     rect(x, height * 0.35, 10, y * scale);
     xoff += 0.1;
   }
 
   yoff += 0.003;
-  // image(pg, -width / 2, 0, windowWidth, windowHeight);
 
   // the glitched images
   graphics.forEach((g, i) => {
@@ -114,12 +117,6 @@ function draw() {
     image(g, img.posX, img.posY);
   });
 
-  // images.forEach(i => {
-  //   if (i) {
-  //     i.drawGlitch();
-  //   }
-  // });
-  // the glitched images
   push();
   translate(-width / 2, -height / 2);
   for (let i = 0; i < stars.length; i++) {
@@ -127,6 +124,8 @@ function draw() {
     stars[i].blink();
   }
   pop();
+
+  rotateBox();
 }
 
 function gotFile(file) {
@@ -147,6 +146,22 @@ function gotFile(file) {
     });
   } else {
     console.log("Not an image file!");
+  }
+}
+
+function rotateBox(num) {
+  push();
+  rotateY(angle * 0.3); //rotate together
+  //three layers boxes with different moving speed
+  for (let i = 0; i < num; i++) {
+    rotateY((PI * 2) / num);
+    push();
+    translate(0, -100, 130 + cos(index + mouseX / 400) * 180);
+    rotateY(angle * 0.5);
+    rotateX(angle * 0.2);
+    rotateZ(angle * 0.4);
+    box(2, 2, 60);
+    pop();
   }
 }
 
