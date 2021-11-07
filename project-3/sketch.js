@@ -1,13 +1,6 @@
-console.log("haha");
-
-const upload = document.getElementById("upload");
-const audioPlayer = document.getElementById("audio");
-upload.addEventListener("change", e => {
-  console.log(e.target.files[0]);
-  audioPlayer.src = URL.createObjectURL(e.target.files[0]);
-});
-
 let images = [];
+
+let thumbnails = [];
 
 const bgColor = "#2A1C52";
 const planeStroke = "#f800b7";
@@ -17,6 +10,8 @@ let pg;
 
 let yoff = 0.0;
 
+let startAnimation = false;
+
 function preload() {}
 
 function setup() {
@@ -24,6 +19,7 @@ function setup() {
   const c = createCanvas(windowWidth, windowHeight, WEBGL);
   pg = createGraphics(windowWidth, windowHeight);
   background(bgColor);
+
   // Add an event for when a file is dropped onto the canvas
   c.drop(gotFile);
   userStartAudio();
@@ -43,6 +39,12 @@ function draw() {
   // ambientLight(255);
   // pointLight(0, 255, 255, 100, 100, 100);
   // directionalLight(250, 250, 250, 100, 100, -0.5);
+
+  thumbnails.forEach((img, i) => {
+    image(img.img, i * 210, -150, img.w, img.h);
+  });
+
+  if (!startAnimation) return;
   ambientLight("#EA7851");
   let locX = mouseX - width / 2;
   let locY = mouseY - height / 2;
@@ -66,6 +68,7 @@ function draw() {
   push();
   translate(-width / 2, height * 0.35);
   rotateX(PI / 2);
+
   for (let x = 0; x < width + 35; x += 35) {
     for (let y = 0; y < 300; y += 35) {
       push();
@@ -97,11 +100,11 @@ function draw() {
   image(pg, -width / 2, 0, windowWidth, windowHeight);
 
   // the glitched images
-  // images.forEach((i) => {
-  //   if (i) {
-  //     i.drawGlitch();
-  //   }
-  // });
+  images.forEach(i => {
+    if (i) {
+      i.drawGlitch();
+    }
+  });
   // the glitched images
 }
 
@@ -115,7 +118,8 @@ function gotFile(file) {
       // Draw the image onto the canvas
       let imgW = 200;
       let imgH = (200 * img.height) / img.width;
-      image(img, positionX, positionY, imgW, imgH);
+      // image(img, positionX, positionY, imgW, imgH);
+      thumbnails.push({ img: img, w: imgW, h: imgH });
       images.push(new GlitchedImage(img, positionX, positionY, imgW, imgH));
     });
   } else {

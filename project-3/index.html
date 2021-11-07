@@ -23,29 +23,38 @@
       referrerpolicy="no-referrer"
     ></script>
 
+    <link rel="stylesheet" href="styles.css" />
     <title>Project3</title>
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        font-family: sans-serif;
-        color: #fff;
-        width: 100vw;
-        height: 100vh;
-      }
-    </style>
   </head>
   <body>
     <!-- <p id="degree"></p>
     <p id="time"></p> -->
 
-    <input type="file" id="upload" />
-    <audio id="audio" controls>
-      <source src="" id="audio" />
-    </audio>
+    <div class="wrapper">
+      <h1 class="title">Create Your Unique Vaporwave Animation</h1>
+
+      <h3 class="info">Step 1: Upload 3-5 Vaporwave Style Images</h3>
+      <a href="https://imgbin.com/free-png/vaporwave" target="_blank">
+        You can download from here!
+      </a>
+
+      <h3 class="info">
+        Step 2: Upload An Vaporwave Style Music (Can Be Any Electronic Music)
+      </h3>
+
+      <div class="audio-wrapper">
+        <input type="file" id="upload" />
+
+        <audio id="audioPlayer" controls>
+          <source src="" id="audio" />
+        </audio>
+      </div>
+
+      <button class="btn">Generate Vaporwave Animation!</button>
+    </div>
+
     <script src="glitchedImage.js" type="text/javascript"></script>
     <script src="sketch.js" type="text/javascript"></script>
+    <script src="main.js"></script>
   </body>
 </html>
