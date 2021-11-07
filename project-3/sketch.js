@@ -1,4 +1,5 @@
 let images = [];
+let stars = [];
 
 let thumbnails = [];
 let graphics = [];
@@ -28,6 +29,10 @@ function setup() {
   // create a mic audio input
   mic = new p5.AudioIn();
   mic.start();
+
+  for (var i = 0; i < 200; i++) {
+    stars[i] = new Star();
+  }
 }
 
 let angle = 0;
@@ -75,8 +80,10 @@ function draw() {
       push();
       translate(x, y);
       noFill();
-      stroke(planeStroke);
+
       strokeWeight(2);
+      stroke(planeStroke);
+
       rect(0, 0, 35);
       pop();
     }
@@ -113,6 +120,13 @@ function draw() {
   //   }
   // });
   // the glitched images
+  push();
+  translate(-width / 2, -height / 2);
+  for (let i = 0; i < stars.length; i++) {
+    stars[i].drawStar();
+    stars[i].blink();
+  }
+  pop();
 }
 
 function gotFile(file) {
