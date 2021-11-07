@@ -1,6 +1,7 @@
 let images = [];
 
 let thumbnails = [];
+let graphics = [];
 
 const bgColor = "#2A1C52";
 const planeStroke = "#f800b7";
@@ -18,7 +19,7 @@ function setup() {
   // create canvas
   const c = createCanvas(windowWidth, windowHeight, WEBGL);
   pg = createGraphics(windowWidth, windowHeight);
-  background(bgColor);
+  // background(bgColor);
 
   // Add an event for when a file is dropped onto the canvas
   c.drop(gotFile);
@@ -32,7 +33,7 @@ function setup() {
 let angle = 0;
 
 function draw() {
-  // background(bgColor);
+  background(bgColor);
   // textSize(24);
   // textAlign(CENTER);
   // text("Drag an image file onto the canvas.", width / 2, height / 2);
@@ -86,7 +87,7 @@ function draw() {
   // graphics (audio visulisor)
   let vol = mic.getLevel();
   let scale = map(vol, 0, 1, 0.5, 1);
-  pg.background(bgColor);
+  // pg.background(bgColor);
   let xoff = 0;
   for (let x = 0; x <= pg.width; x += 30) {
     let y = map(noise(xoff, yoff), 0, 1, -80, -300);
@@ -100,11 +101,17 @@ function draw() {
   image(pg, -width / 2, 0, windowWidth, windowHeight);
 
   // the glitched images
-  images.forEach(i => {
-    if (i) {
-      i.drawGlitch();
-    }
+  graphics.forEach((g, i) => {
+    let img = images[i];
+    img.drawGlitch(g);
+    image(g, img.posX, img.posY);
   });
+
+  // images.forEach(i => {
+  //   if (i) {
+  //     i.drawGlitch();
+  //   }
+  // });
   // the glitched images
 }
 
@@ -121,6 +128,8 @@ function gotFile(file) {
       // image(img, positionX, positionY, imgW, imgH);
       thumbnails.push({ img: img, w: imgW, h: imgH });
       images.push(new GlitchedImage(img, positionX, positionY, imgW, imgH));
+      const pGraphic = createGraphics(imgW, imgH);
+      graphics.push(pGraphic);
     });
   } else {
     console.log("Not an image file!");

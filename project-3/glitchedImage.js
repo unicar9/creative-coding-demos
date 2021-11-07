@@ -9,7 +9,7 @@ class GlitchedImage {
     this.img = img;
   }
 
-  drawGlitch() {
+  drawGlitch(pg) {
     push();
     translate(this.posX, this.posY);
     let y = floor(random(this.imgH));
@@ -17,7 +17,7 @@ class GlitchedImage {
     let xOffset = floor(random(-maxXChange, maxXChange));
 
     let sy = (y * this.img.width) / this.imgW;
-    image(this.img, xOffset, y, this.imgW, h, 0, sy, this.img.width, h);
+    pg.image(this.img, xOffset, y, this.imgW, h, 0, sy, this.img.width, h);
     pop();
   }
 }
