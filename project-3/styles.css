@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Tinos&family=VT323&display=swap");
+
+html,
+body {
+  font-family: "Tinos", serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  /* color: #fff; */
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  font-family: "VT323", monospace;
+  font-size: 3em;
+  color: black;
+}
+
+.info {
+  font-size: 2em;
+  color: black;
+}
+
+.btn {
+  font-family: "VT323", monospace;
+  font-size: 1.5em;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  text-decoration: none;
+}
