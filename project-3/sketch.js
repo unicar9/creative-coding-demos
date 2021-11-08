@@ -32,7 +32,7 @@ function setup() {
   // background(bgColor);
 
   // Add an event for when a file is dropped onto the canvas
-  c.drop(gotFile);
+  // c.drop(gotFile);
   userStartAudio();
 
   // create a mic audio input
@@ -132,9 +132,11 @@ function gotFile(file) {
   let positionX = random(-0.5 * windowWidth, 0.5 * windowWidth - 300);
   let positionY = random(-0.5 * windowHeight, 0.1 * windowHeight - 400);
   // If it's an image file
-  if (file.type === "image") {
+  if (file.type === "image/png" || file.type === "image/jpeg") {
     // Create an image DOM element but don't show it
-    let img = createImg(file.data, "statue", "anonymous", () => {
+    const data = URL.createObjectURL(file);
+
+    let img = createImg(data, "statue", "anonymous", () => {
       // Draw the image onto the canvas
       let imgW = 200;
       let imgH = (200 * img.height) / img.width;
