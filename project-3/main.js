@@ -9,9 +9,8 @@ const btn = document.querySelector(".btn");
 
 const form = document.querySelector("form");
 
-upload.addEventListener("change", e => {
+upload.addEventListener("change", (e) => {
   audioPlayer.src = URL.createObjectURL(e.target.files[0]);
-  //   audioPlayer.play();
 });
 
 btn.addEventListener("click", () => {
@@ -21,7 +20,7 @@ btn.addEventListener("click", () => {
   wrapper.style.display = "none";
 });
 
-form.addEventListener("submit", e => {
+form.addEventListener("submit", (e) => {
   const data = new FormData(form);
   colorIndex = data.get("color_scheme");
   console.log("colorIndex: ", colorIndex);
@@ -33,10 +32,10 @@ form.addEventListener("submit", e => {
   e.preventDefault();
 });
 
-wrapper.addEventListener("drop", e => {
+wrapper.addEventListener("drop", (e) => {
   e.preventDefault();
 });
 
-wrapper.addEventListener("dragover", e => {
+wrapper.addEventListener("dragover", (e) => {
   e.preventDefault();
 });

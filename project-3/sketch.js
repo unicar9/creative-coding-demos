@@ -129,8 +129,7 @@ function draw() {
 }
 
 function gotFile(file) {
-  let positionX = random(-0.5 * windowWidth, 0.5 * windowWidth - 300);
-  let positionY = random(-0.5 * windowHeight, 0.1 * windowHeight - 400);
+  let positionY = random(-0.5 * windowHeight, 0.5 * windowHeight - 400);
   // If it's an image file
   if (file.type === "image") {
     // Create an image DOM element but don't show it
@@ -138,9 +137,16 @@ function gotFile(file) {
       // Draw the image onto the canvas
       let imgW = 200;
       let imgH = (200 * img.height) / img.width;
-      // image(img, positionX, positionY, imgW, imgH);
       thumbnails.push({ img: img, w: imgW, h: imgH });
-      images.push(new GlitchedImage(img, positionX, positionY, imgW, imgH));
+      images.push(
+        new GlitchedImage(
+          img,
+          -0.5 * windowWidth + images.length * random(180, 250),
+          positionY,
+          imgW,
+          imgH
+        )
+      );
       const pGraphic = createGraphics(imgW, imgH);
       graphics.push(pGraphic);
     });
@@ -163,6 +169,13 @@ function rotateBox(num) {
     box(2, 2, 60);
     pop();
   }
+}
+
+function doubleClicked() {
+  console.log("doubleClicked: ");
+  ellipse(mouseX, mouseY, 5, 5);
+
+  saveCanvas("myCanvas", "jpg");
 }
 
 windowResized = function () {

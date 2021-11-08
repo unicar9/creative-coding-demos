@@ -23,10 +23,24 @@ a {
 .title {
   font-family: "VT323", monospace;
   font-size: 3em;
+  color: #f4631f;
 }
 
 .info {
-  font-size: 2em;
+  font-size: 1.5em;
+}
+
+.info > a {
+  font-size: 20px;
+}
+
+.images-wrapper {
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #f4631f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .audio-wrapper {
