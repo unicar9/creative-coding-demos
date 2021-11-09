@@ -32,7 +32,7 @@ function setup() {
   // background(bgColor);
 
   // Add an event for when a file is dropped onto the canvas
-  c.drop(gotFile);
+  // c.drop(gotFile);
   userStartAudio();
 
   // create a mic audio input
@@ -48,9 +48,10 @@ let angle = 0;
 
 function draw() {
   background(bgColor);
+  console.log("-width / 2: ", -width / 2);
 
   thumbnails.forEach((img, i) => {
-    image(img.img, i * 210 - 2 / width, -150, img.w, img.h);
+    image(img.img, -width / 2 + i * 200, -250, img.w, img.h);
   });
 
   if (!startAnimation) return;
@@ -131,9 +132,11 @@ function draw() {
 function gotFile(file) {
   let positionY = random(-0.5 * windowHeight, 0.5 * windowHeight - 400);
   // If it's an image file
-  if (file.type === "image") {
+  if (file.type === "image/png" || file.type === "image/jpeg") {
     // Create an image DOM element but don't show it
-    let img = createImg(file.data, "statue", "anonymous", () => {
+    const data = URL.createObjectURL(file);
+
+    let img = createImg(data, "statue", "anonymous", () => {
       // Draw the image onto the canvas
       let imgW = 200;
       let imgH = (200 * img.height) / img.width;
